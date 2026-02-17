@@ -24,25 +24,8 @@ structure(x, y) =
     (σ_x * σ_y + C3)
 
 SSIM(x, y) =
-    luminance(x, y) *
-    contrast(x, y) *
-    structure(x, y)
+    luminance(x, y) * contrast(x, y) * structure(x, y)
 ```
-
-luminance(x, y) = 
-(2μ_xμ_y + C1) / 
-(μ_x² + μ_y² + C1)
-
-contrast(x, y) = 
-((2σ_xσ_y) + C2) /
-(σ_x² + σ_y² + C2)
-
-structure(x, y) = 
-(σ_xy + C3) /
-(σ_xσ_y + C3)
-
-SSIM(x, y) = 
-luminance(x, y) * contrast(x, y) * structure(x, y)
 
 Where:
 
@@ -104,4 +87,5 @@ This prevents large uniform background areas from artificially inflating similar
 ```bash
 pip install -r requirements.txt
 python ssim.py {image_1} {image_2}
+
 
