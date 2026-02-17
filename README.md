@@ -10,8 +10,27 @@ The final scalar score is obtained by averaging the per-pixel SSIM values.
 
 For each pixel location:
 
+```text
+luminance(x, y) =
+    (2 * μ_x * μ_y + C1) /
+    (μ_x^2 + μ_y^2 + C1)
+
+contrast(x, y) =
+    (2 * σ_x * σ_y + C2) /
+    (σ_x^2 + σ_y^2 + C2)
+
+structure(x, y) =
+    (σ_xy + C3) /
+    (σ_x * σ_y + C3)
+
+SSIM(x, y) =
+    luminance(x, y) *
+    contrast(x, y) *
+    structure(x, y)
+```
+
 luminance(x, y) = 
-((2μ_xμ_y + C1) + C1) / 
+(2μ_xμ_y + C1) / 
 (μ_x² + μ_y² + C1)
 
 contrast(x, y) = 
@@ -30,7 +49,8 @@ Where:
 - μx, μy = Gaussian-weighted local means  
 - σx², σy² = Gaussian-weighted local variances  
 - σxy = Gaussian-weighted local covariance  
-- C1, C2 = stability constants  
+- C1, C2 = stability constants
+- C3 = C2 / 2
 
 The similarity map is computed independently per RGB channel and then averaged across channels.
 
@@ -84,3 +104,4 @@ This prevents large uniform background areas from artificially inflating similar
 ```bash
 pip install -r requirements.txt
 python ssim.py {image_1} {image_2}
+
